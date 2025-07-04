@@ -12,20 +12,21 @@ import { TasksService } from '../tasks.service';
 })
 export class NewTaskComponent {
   @Input({required:true})userId!:string;
-  @Output()cancel=new EventEmitter<void>();
-  @Output()add=new EventEmitter<NewTask>();
+  @Output()close=new EventEmitter<void>();
+ 
   entredTitle='';
   entredSummray='';
   entredDate='';
   private tasksService=inject(TasksService)
 onCancel(){
-this.cancel.emit();
+this.close.emit();
 }
 onSubmit(){
 this.tasksService.addTasks({
   title: this.entredTitle,
   summary:this.entredSummray,
   date:this.entredDate
-}, this.userId)
+}, this.userId);
+this.close.emit()
 }
 }
